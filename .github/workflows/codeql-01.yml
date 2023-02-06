@@ -81,4 +81,11 @@ jobs:
         set -ux
         pwd
         ls -al
-        ls -al results/
+        # ls -al results/
+        ls -al ../
+        ls -al ../../
+        ls -al /home/runner/work/_temp/codeql_databases/python
+
+    - uses: github/codeql-action/upload-sarif@v2
+      # Path to SARIF file relative to the root of the repository
+      sarif_file: results.sarif
