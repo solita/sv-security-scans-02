@@ -87,9 +87,16 @@ jobs:
         ls -al /home/runner/work/_temp/codeql_databases/python
         find /home/runner -name "*.sarif"
 
-    - uses: github/codeql-action/upload-sarif@v2
+    # - uses: github/codeql-action/upload-sarif@v2
+    #   with:
+    #     # Path to SARIF file relative to the root of the repository
+    #     # sarif_file: python.sarif
+    #     # sarif_file: results/python.sarif
+    #     # Error: Aborting upload: only one run of the codeql/analyze or codeql/upload-sarif actions is allowed per job per tool/category. The easiest fix is to specify a unique value for the `category` input. If .runs[].automationDetails.id is
+    #     sarif_file: /home/runner/work/sv-security-scans-02/results/python.sarif  #
+
+    - name: Upload results
+      uses: actions/upload-artifact@v3
       with:
-        # Path to SARIF file relative to the root of the repository
-        # sarif_file: python.sarif
-        # sarif_file: results/python.sarif
-        sarif_file: /home/runner/work/sv-security-scans-02/results/python.sarif
+        name: python.sarif
+        path: /home/runner/work/sv-security-scans-02/results/python.sarif
