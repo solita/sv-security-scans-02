@@ -1,4 +1,0 @@
--r requirements_common.txt
-
-# Dependencies only required for Mac
-certifi ~= 2020.12.5
