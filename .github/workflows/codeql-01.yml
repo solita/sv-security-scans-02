@@ -91,4 +91,5 @@ jobs:
       with:
         # Path to SARIF file relative to the root of the repository
         # sarif_file: python.sarif
-        sarif_file: results/python.sarif
+        # sarif_file: results/python.sarif
+        sarif_file: /home/runner/work/sv-security-scans-02/results/python.sarif
