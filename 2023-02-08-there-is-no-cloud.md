@@ -1,4 +1,4 @@
-# There Is No Cloud It’s Just Someone Else's Computer
+# There Is No Cloud, It’s Just Someone Else's Computer
 
 This well-known adage unfortunately isn't a joke, and you 
 should clearly understand who actually owns (has access to all) 
