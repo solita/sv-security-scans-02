@@ -44,11 +44,18 @@ jobs:
       - uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.PAT_2023_02_12 }}
+          script: |
+            set -ux
+            which gh
+            gh --version
+            gh api -H "Accept: application/vnd.github+json" /repos/solita-sv/sv-security-scans-03/actions/workflows
+
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.PAT_2023_02_12 }}
           # github-token: ${{ secrets.SIMPLE_SECRET }}
           script: |
-            which gh
-            gh --verion
-            gh api -H "Accept: application/vnd.github+json" /repos/solita-sv/sv-security-scans-03/actions/workflows
+            set -ux
             await github.rest.actions.createWorkflowDispatch({
               owner: 'solita-sv',
               repo: 'sv-security-scans-03',
