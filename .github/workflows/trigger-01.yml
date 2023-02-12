@@ -46,7 +46,7 @@ jobs:
           github-token: ${{ secrets.PAT_2023_02_12 }}
           script: |
             set -ux
-            apt install -y gh
+            sudo apt install -y gh
             which gh
             gh --version
             gh api -H "Accept: application/vnd.github+json" /repos/solita-sv/sv-security-scans-03/actions/workflows
