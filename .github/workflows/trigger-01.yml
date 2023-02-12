@@ -35,6 +35,6 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: 'solita-sv',
               repo: 'sv-security-scans-03',
-              workflow_id: 'triggered-01.yml',
+              workflow_id: 'triggered-02.yml',
               ref: 'main'
             })
