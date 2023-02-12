@@ -18,7 +18,9 @@ jobs:
   analyze:
     name: Trigger Another Workflow
     runs-on: ubuntu-latest
-    run: |
-      USER_NAME='solita-sv'
-      REPO_NAME='sv-security-scans-03'
-      curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/${USER_NAME}/${REPO_NAME}/dispatches --data '{"event_type": "build_application"}'
+    steps:
+      - run: |
+          set -ux
+          USER_NAME='solita-sv'
+          REPO_NAME='sv-security-scans-03'
+          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/${USER_NAME}/${REPO_NAME}/dispatches --data '{"event_type": "build_application"}'
