@@ -43,5 +43,5 @@ jobs:
 
       - run: |
           set -ux
-          curl -H "Authorization: Bearer ${{ secrets.PAT_TOKEN }}" \
+          curl -H "Authorization: Bearer ${{ secrets.PAT_2023_02_12 }}" \
             https://api.github.com/repos/solita-sv/sv-security-scans-03/actions/workflows
