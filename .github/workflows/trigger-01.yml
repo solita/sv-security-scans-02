@@ -19,15 +19,6 @@ jobs:
     name: Trigger Another Workflow
     runs-on: ubuntu-latest
     steps:
-#      - run: |
-#          set -ux
-#          USER_NAME='solita-sv'
-#          REPO_NAME='sv-security-scans-03'
-#          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" \
-#            -H "Accept: application/vnd.github.everest-preview+json" \
-#            -H "Content-Type: application/json" \
-#            https://api.github.com/repos/${USER_NAME}/${REPO_NAME}/dispatches \
-#              --data '{"event_type": "build_application"}'
       # - run: |
       #     set -ux
       #     USER_NAME='solita-sv'
@@ -41,25 +32,21 @@ jobs:
 
       # gh api -H "Accept: application/vnd.github+json" /repos/solita-sv/sv-security-scans-03/actions/workflows
 
-      - run: |
+      - name: List Workflows  # Works!
+        run: |
           set -ux
           ORGANIZATION='solita'  # TODO: not solita-sv
           REPOSITORY='sv-security-scans-03'
           curl -H "Authorization: Bearer ${{ secrets.PAT_2023_02_12 }}" \
             https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/actions/workflows
 
-      - uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.PAT_2023_02_12 }}
-          script: |
-            set -ux
-            ORGANIZATION='solita'  # TODO: not solita-sv
-            REPOSITORY='sv-security-scans-03'
-            await github.rest.actions.createWorkflowDispatch({
-              owner: 'solita-sv',
-              repo: 'sv-security-scans-03',
-              workflow_id: 48177153,
-              ref: 'main',
-              debug: true
-            })
-
+      - name: Trigger Workflow
+        run: |
+          set -ux
+          USER_NAME='solita'
+          REPO_NAME='sv-security-scans-03'
+          curl -XPOST -u "solita-sv:${{ secrets.PAT_2023-02-12 }}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/${USER_NAME}/${REPO_NAME}/dispatches \
+              --data '{"event_type": "build_application"}'
