@@ -46,11 +46,12 @@ jobs:
           github-token: ${{ secrets.PAT_2023_02_12 }}
           script: |
             set -ux
-            sudo apt install -y gh
-            which gh
-            gh --version
+            # sudo apt install -y gh
+            # which gh
+            # gh --version
             # gh api -H "Accept: application/vnd.github+json" https://api.github.com/repos/solita-sv/sv-security-scans-03/actions/workflows
-            gh api -H "Accept: application/vnd.github+json" "/repos/solita-sv/sv-security-scans-03/actions/workflows"
+            # gh api -H "Accept: application/vnd.github+json" "/repos/solita-sv/sv-security-scans-03/actions/workflows"
+            curl -i -u solita-sv:${{ secrets.PAT_2023_02_12 }} https://api.github.com/repos/solita-sv/sv-security-scans-03/actions/workflows
 
       - uses: actions/github-script@v6
         with:
