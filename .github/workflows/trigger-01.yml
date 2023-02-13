@@ -43,4 +43,4 @@ jobs:
 
       - run: |
           set -ux
-          curl https://api.github.com/repos/solita-sv/sv-security-scans-03/actions/workflows
+          curl -v https://api.github.com/repos/solita-sv/sv-security-scans-03/actions/workflows
