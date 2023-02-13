@@ -43,7 +43,7 @@ jobs:
 
       - uses: actions/github-script@v6
         with:
-          # github-token: ${{ secrets.PAT_2023_02_12 }}
+          # github-token: $ {{ secrets.PAT_2023_02_12 }}
           script: |
             set -ux
             # sudo apt install -y gh
