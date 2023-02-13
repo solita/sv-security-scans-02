@@ -41,8 +41,6 @@ jobs:
 
       # gh api -H "Accept: application/vnd.github+json" /repos/solita-sv/sv-security-scans-03/actions/workflows
 
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            set -ux
-            curl https://api.github.com/repos/solita-sv/sv-security-scans-03/actions/workflows
+      - run: |
+          set -ux
+          curl https://api.github.com/repos/solita-sv/sv-security-scans-03/actions/workflows
