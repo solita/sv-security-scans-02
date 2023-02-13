@@ -43,5 +43,22 @@ jobs:
 
       - run: |
           set -ux
+          ORGANIZATION='solita'  # TODO: not solita-sv
+          REPOSITORY='sv-security-scans-03'
           curl -H "Authorization: Bearer ${{ secrets.PAT_2023_02_12 }}" \
-            https://api.github.com/repos/solita/sv-security-scans-03/actions/workflows
+            https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/actions/workflows
+
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.PAT_2023_02_12 }}
+          script: |
+            set -ux
+            ORGANIZATION='solita'  # TODO: not solita-sv
+            REPOSITORY='sv-security-scans-03'
+            await github.rest.actions.createWorkflowDispatch({
+              owner: ${ORGANIZATION},
+              repo: ${REPOSITORY},
+              workflow_id: 'triggered-02.yml',
+              ref: 'main'
+            })
+
