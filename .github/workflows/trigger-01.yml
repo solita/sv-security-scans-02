@@ -47,7 +47,8 @@ jobs:
           REPO_NAME='sv-security-scans-03'
           WFL_NAME='triggered-02.yml'
           # curl -XPOST -u "solita-sv:${{ secrets.PAT_2023_02_12 }}" \
-          status_code=$(curl -XPOST -H "Authorization: Bearer ${{ secrets.PAT_2023_02_12 }}" \
+          status_code=$(curl --write-out '%{http_code}' -XPOST \
+            -H "Authorization: Bearer ${{ secrets.PAT_2023_02_12 }}" \
             -H "Accept: application/vnd.github.everest-preview+json" \
             -H "Content-Type: application/json" \
             https://api.github.com/repos/${USER_NAME}/${REPO_NAME}/actions/workflows/${WFL_NAME}/dispatches \
