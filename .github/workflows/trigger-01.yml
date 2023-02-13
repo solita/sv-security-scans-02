@@ -56,7 +56,7 @@ jobs:
             ORGANIZATION='solita'  # TODO: not solita-sv
             REPOSITORY='sv-security-scans-03'
             await github.rest.actions.createWorkflowDispatch({
-              owner: "solita",
+              owner: "solita-sv",
               repo: "sv-security-scans-03",
               workflow_id: "triggered-02.yml",
               ref: "main"
