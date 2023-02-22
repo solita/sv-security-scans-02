@@ -1,0 +1,98 @@
+# Best Password Managers Do Not Know Nor Send Away Your Passwords
+
+## Introduction
+
+1. Is it possible? YES!
+
+2. Does it make password leaking impossible? YES!
+
+3. So, finally I can use the same (strong) password 
+for all websites? YES.
+
+4. Is it difficult to understand? NO, just basic 
+knowledge about hash functions, symmetric and asymmetric
+cryptography is enough. No maths. No oblivious pseudorandom 
+functions, zero-knowledge proofs of possession, ...
+
+## How Traditional Password Authentication Works (Reminder)
+
+1. During registration, you send your `username` and password `pwd` to
+   a website, the password is being hashed with a salt `h(pwd, salt)`,
+   and a triple
+   ```
+   username | salt | h(pwd, salt)
+   ```
+   is being saved on the website, while `pwd` is **erased** and 
+   never stored.
+2. During login, you send your `username` and `pwd`, the website 
+   computes the salted hash and if it happens to be the same as
+   `h(pwd, salt)` kept in the triple above, you are successfully
+   authenticated. You prove that you know `pwd`, since
+   it produces the same hash as expected. 
+   Hash verification is based on the 
+   **collision-free** property
+   of good hashing: it's impossible to produce two different 
+   passwords with the same hash:
+   ```
+   h(pwd1, salt) != h(pwd2, salt) for pwd1 != pwd2
+   ```
+3. Why this authentication is bad? Because (even though the
+   website does not store your password) you need to send your 
+   password to the website on each login (hopefully with HTTPS)
+   for hash verification/authentication.
+   This exposes your password, which may be leaked somewhere
+   on the website side. Therefore all these well-known 
+   recommendations about not reusing the same password
+   on different websites.
+
+
+## No More Sending Away Passwords!
+
+1. During registration, you take your `username`, password `pwd`
+   and compute several things:
+   - password hash `k=h(pwd)`, which will be used as a 
+     **symmetric key**,
+   - generate an **asymmetric key pair** `pub, pri`,
+   - encrypt `enc(pri, k)` the private key with the symmetric
+     key `k=h(pwd)` above.
+   
+   The following triple is saved on the website (only the
+   middle element is cryptotext):
+
+   ```
+   username | enc(pri, k) | pub
+   ```
+
+2. During login, you send your `username` and get back your
+   encrypted private key `enc(pri, k)`. Since you know your 
+   password `pwd`, you can compute your symmetric key
+   `k=h(pwd)` and decrypt your asymmetric private key
+   `pri=enc(enc(pri, k), k)` (in symmetric cryptography you encrypt 
+   and decrypt with the same key).
+
+   Now you have your asymmetric private key `pri`, the website
+   has the corresponding public key, and you may start 
+   communication.
+
+3. Note that:
+   - your password is never sent away from your computer;
+   - it is only used on your computer for computing `h(pwd)`
+     and erased thereafter;
+   - the difficult-to-remember secret `pri` is kept in encrypted 
+     form `enc(pri, k)` on the website; you decrypt it 
+     using an easy to remember `pwd` and `k=h(pwd)`;
+   - of course, you can start by registering `pub` on the
+     website, keep `pri` with you and use this key pair 
+     for all communication with the server, but remembering `pri`
+     is difficult, especially if you use many devices (copying 
+     needed, which increases possibilities of losing `pri`); 
+     in the scheme described you just need to remember `pwd`.
+
+## Conclusions
+
+1. Of course, all the above is oversimplified for the wide audience
+to understand the basic principles and get convinced that a more 
+secure password management is needed and possible.
+
+2. You can finally start reusing your single (strong) password on many
+websites, since they cannot leak it.
