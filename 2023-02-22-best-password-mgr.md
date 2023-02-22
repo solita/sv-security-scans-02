@@ -72,7 +72,7 @@ functions, zero-knowledge proofs of possession, ...
    password `pwd`, you can compute your symmetric key
    `k=h(pwd)` and decrypt your asymmetric private key
    `pri=enc(enc(pri, k), k)` (in symmetric cryptography you encrypt 
-   and decrypt with the same key).
+   and decrypt with the same key `k`).
 
    Now you have your asymmetric private key `pri`, the website
    has the corresponding public key `pub`, and you may start 
