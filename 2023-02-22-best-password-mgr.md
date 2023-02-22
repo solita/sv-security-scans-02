@@ -118,9 +118,9 @@ secure password management is needed and possible.
 ### A: Cryptographically, it's just a store for asymmetric private keys locked by a master key.
 
 1. It is locked by something you know (password, pin, swipe 
-   pattern) or/and biometrically (fingerprint, iris, voice)
+   pattern) or/and biometrically (fingerprint, iris, voice).
 
-2. otherwise, it just contains a list of the websites with 
+2. Otherwise, it just contains a list of the websites with 
    associated private keys you created at registration with
    each website:
    ```
