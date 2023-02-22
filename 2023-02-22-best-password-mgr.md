@@ -13,8 +13,10 @@ for all websites? YES.
 knowledge about hash functions, symmetric and asymmetric
 cryptography is enough. No maths. No oblivious pseudorandom 
 functions, zero-knowledge proofs of possession, ...
+5. TL;DR: start by section 2.
 
-## How Traditional Password Authentication Works (Reminder)
+
+## 1. How Traditional Password Authentication Works (Reminder)
 
 1. During registration, you send your `username` and password `pwd` to
    a website, the password is being hashed with a salt `h(pwd, salt)`,
@@ -46,7 +48,7 @@ functions, zero-knowledge proofs of possession, ...
    on different websites.
 
 
-## No More Sending Away Passwords!
+## 2. No More Sending Away Passwords!
 
 1. During registration, you take your `username`, password `pwd`
    and compute several things:
@@ -71,16 +73,16 @@ functions, zero-knowledge proofs of possession, ...
    and decrypt with the same key).
 
    Now you have your asymmetric private key `pri`, the website
-   has the corresponding public key, and you may start 
-   communication.
+   has the corresponding public key `pub`, and you may start 
+   secure communication.
 
 3. Note that:
    - your password is never sent away from your computer;
-   - it is only used on your computer for computing `h(pwd)`
+   - it is only used on your computer for calculating `h(pwd)`
      and erased thereafter;
    - the difficult-to-remember secret `pri` is kept in encrypted 
      form `enc(pri, k)` on the website; you decrypt it 
-     using an easy to remember `pwd` and `k=h(pwd)`;
+     using an easy to remember `pwd` and key `k=h(pwd)`;
    - of course, you can start by registering `pub` on the
      website, keep `pri` with you and use this key pair 
      for all communication with the server, but remembering `pri`
@@ -90,9 +92,18 @@ functions, zero-knowledge proofs of possession, ...
 
 ## Conclusions
 
-1. Of course, all the above is oversimplified for the wide audience
+1. So, in a better world you do not need to send away
+   your passwords for authentication.
+
+2. Of course, all the above is oversimplified for the wide audience
 to understand the basic principles and get convinced that a more 
 secure password management is needed and possible.
 
-2. You can finally start reusing your single (strong) password on many
-websites, since they cannot leak it.
+3. Of course, just password managers cannot implement the 
+   authentication schemes similar to the above. Client-server
+   protocols need to be upgraded. We just wanted to stress
+   the idea that servers do not need to know your passwords
+   for authentication.
+
+4. Once it is done, you can finally start reusing your single 
+   (strong) password on many websites, since they cannot leak it.
