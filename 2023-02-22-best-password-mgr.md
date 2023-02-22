@@ -47,6 +47,8 @@ functions, zero-knowledge proofs of possession, ...
    recommendations about not reusing the same password
    on different websites.
 
+4. The Web if full of horror stories about never ending passwords leaks.
+
 
 ## 2. No More Sending Away Passwords!
 
