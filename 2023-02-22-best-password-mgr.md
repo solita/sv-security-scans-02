@@ -109,3 +109,37 @@ secure password management is needed and possible.
 
 4. Once it is done, you can finally start reusing your single 
    (strong) password on many websites, since they cannot leak it.
+
+
+## Appendix 1: Passkeys
+
+### Q: What is a passkey?
+
+### A: Cryptographically, it's just a store for asymmetric private keys locked by a master key.
+
+1. It is locked by something you know (password, pin, swipe 
+   pattern) or/and biometrically (fingerprint, iris, voice)
+
+2. otherwise, it just contains a list of the websites with 
+   associated private keys you created at registration with
+   each website:
+   ```
+   web-url_1, pri_1
+   web-url_2, pri_2
+   web-url_3, pri_3
+   ...
+   ```
+   The corresponding public keys `pub_i` are kept by the 
+   websites.
+
+3. No surprise: authentication happens using public key 
+   cryptography, and, obviously, private keys are **never**
+   exposed/leaked to websites.
+4. So, passkeys are just convenient means to store big sets 
+   of impossible-to-remember private keys, protected.
+5. No rocket science.
+
+By contrast, what we described in section 2 is how you **can 
+avoid** remembering private keys, storing them encrypted 
+on the websites, and easily decrypting with your hashed 
+password.
