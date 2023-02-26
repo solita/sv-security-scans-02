@@ -10,7 +10,7 @@ by preventing a small subset of these parties to complot and reveal/steal
 the secret. Even though 'secret sharing' was 
 coined in 1979, long before any social networks, maybe
 'partition/distribute/split/divide' a secret would be a better term than to
-'share' a secret. Just keep in mind this sense of 'sharing a secret' in this
+'share' a secret. Just keep in mind this meaning of 'sharing a secret' in this
 blog.
 
 
@@ -94,9 +94,9 @@ It does not matter where you keep your encrypted data. It's useless
 unless both secret parts are revelealed.
 
 
-### How is it Relevant to You?
-
-Even though cloud cryptography is a powerful thing, it 'breaks on demand'. If
+**How is it Relevant to You?**
+Even though cloud cryptography is a powerful thing, it easily 
+'breaks on demand'. If
 required, cloud providers reveal you secrets. Here's what AWS says.
 
 
