@@ -8,13 +8,13 @@ publish secrets!) means distributing your secret among several parties in
 a clever way in order to add security,
 by preventing a small subset of these parties to complot and reveal/steal
 the secret. Even though 'secret sharing' was 
-coined in 1979, long before any social networks, maybe
+coined in 1979, long before any social networks, maybe to 
 'partition/distribute/split/divide' a secret would be a better term than to
 'share' a secret. Just keep in mind this meaning of 'sharing a secret' in this
 blog.
 
 
-## 1. Simplest Case: Split a Secret Into Two
+## 1. Simplest Case: Split a Secret Into Two Parts
 
 How to partition / split / divide / share a secret between two parties so as 
 no single party can unilaterally recover the secret from their share?
@@ -26,8 +26,8 @@ provide a support for it. But you'll be easily able to roll your own.
 Suppose you have a *Secret*, a long bit string, say a standard AES-256
 symmetric encryption key, which is just a random bit string of length 256. 
 
-You do not want to keep you *Secret* in just one place, want to share it between 
-two locations.
+You do not want to keep you *Secret* in just one place and want to share 
+it between two locations.
 
 Entrusting your *Secret* to just a single person (entity, KMS, HSM, ...)
 is unwise, because this single person may lose it, get bribed, ... Can
@@ -58,17 +58,17 @@ commutative, *X XOR X = 0*, and *X XOR 0 = X*.
 You may ask a question: why using bitwise *XOR*, we may simply chop our
 256-bit Secret in two 128-bit halves, the beginning, and the end. If
 one of those get lost, it reveals 128 bits of your Secret and its
-strength remains 128 bits, which is enough for brute-force attacks by
+strength remains 128 bits, which is probably enough against brute-force attacks by
 ordinary computers, but not enough against the emerging quantum
-computers. Our XOR split scheme has 256-bit strength, enough against
+computers. Our *XOR* split scheme has 256-bit strength, enough against
 any quantum computers.
 
 
-## 2. How to Benefit From Secret Split?
+## 2. How to Benefit From A Secret Split?
 
 On the practical side, if you place *Part<sub>1</sub>* in AWS
 and *Part<sub>2</sub>* in Azure,
-none of the clouds would learn your original Secret encryption key,
+none of the clouds would learn your original *Secret* encryption key,
 but you may use *Secret = Part<sub>1</sub> XOR Part<sub>2</sub>* 
 to encrypt your data in
 either/both of the clouds. However, you should keep in mind the
@@ -77,7 +77,7 @@ following. You can import *Part<sub>1</sub>* and
 **cannot** extract *Part<sub>1</sub>* and *Part<sub>2</sub>* 
 back from KMSs or HMSs, because none of
 them allow you to extract keys (*Part<sub>1</sub>* or 
-*Part<sub>2</sub>). It's supposed for
+*Part<sub>2</sub>*). It's supposed for
 your benefit: you can only use KMS or HMS APIs to encrypt or decrypt
 messages with a key contained in KMS/HSM, but cannot extract the keys from
 there! Therefore, the ideal form of keeping your *Part<sub>1</sub>* 
@@ -91,7 +91,7 @@ vault you keep a secret rather than a key, the latter cannot leave the
 vault).
 
 It does not matter where you keep your encrypted data. It's useless
-unless both secret parts are revelealed.
+unless both secret parts are revealed.
 
 
 **How is it Relevant to You?**
@@ -111,9 +111,10 @@ allow the customer to seek a protective order or other appropriate
 remedy unless AWS is legally prohibited from doing so.
 
 So, if one of the two clouds you use discloses all you data, including
-*Part<sub>i</sub>, no one can make sense of your encrypted data. Both clouds
-should reveal *Part<sub>1</sub>* and *Part<sub>2<sub>*. 
-Therefore, your best bet is to use two
+one part of your *Secret*, no one can make sense of your encrypted data. 
+Both clouds 
+should reveal *Part<sub>1</sub>* and *Part<sub>2<sub>* for your data to be 
+decrypted. Therefore, your best bet is to use two
 clouds from different jurisdictions, like AWS and Alibaba.
 
 
@@ -131,7 +132,7 @@ same as S in RSA.
 
 The scheme is very easy to understand. To distribute a secret 
 *a<sub>0</sub>* the
-*distributor* chooses *n* different numbers *x<sub>i</sub> (all 
+*distributor* chooses *n* different numbers *x<sub>i</sub>* (all 
 arithmetic is modulo a big prime number *p*), which are publicly
 distributed to *n* participants. Then the distributor secretly
 generates *m-1* random polynomial coefficients 
@@ -143,8 +144,8 @@ to the *i*-th participant the value
 *a(x) = a<sub>0</sub> + a<sub>1</sub>x + a<sub>2</sub>x<sup>2</sup> + ... + 
 a<sub>m-1</sub>x<sup>m-1</sup>*.
 
-Thus, the i-th participant has a public x<sub>i</sub> and a secret 
-share y<sub>i</sub>.
+Thus, the i-th participant has a public *x<sub>i</sub>* and a secret 
+share *y<sub>i</sub>*.
 
 I hope you can now see where it all goes: any polynomial of degree *m-1* 
 can be easily and uniquely reconstructed by the values 
@@ -155,14 +156,17 @@ length m containing public and corresponding private values of *m*
 participants who got together to recover the secret. We have *m*
 linear equations *a(X<sub>i</sub>)=Y<sub>i</sub>* with respect 
 to the unknown coefficients
-*a<sub>0</sub>, a<sub>1</sub>,...,a<sub>m-1</sub>*. This *m x m* 
+*a<sub>0</sub>, a<sub>1</sub>,...,a<sub>m-1</sub>*, and 
+*X<sub>i</sub>*, *Y<sub>i</sub>* are constants. This *m x m* 
 linear system has a **unique** solution,
-because it's matrix is Vandermonde and its determinant is nonzero for
+because its matrix is Vandermonde (every row is 
+*(1, x<sub>i</sub>, x<sub>i</sub><sup>2</sup>,...,
+x<sub>i</sub><sup>m-1</sup>)*) and its determinant is nonzero for
 *different* *x<sub>i</sub>*'s.
 
 There is an even simpler method of recovering the secret *a<sub>0</sub>* 
 from *m* points *(x<sub>i</sub>, y<sub>i</sub>)*. 
-A Lagrange interpolation formula *L(x; X, Y)* gives
+The well known Lagrange interpolation formula *L(x; X, Y)* gives
 an explicit polynomial of *x* going through points *(X, Y)*, taking
 coefficients from *X*, *Y*. By substituting *x=0* into this polynomial
 you recover the secret *a<sub>0</sub>*.
