@@ -48,7 +48,7 @@ reveals nothing about your *Secret*. Why? Because, by construction, each bit
 of *Part<sub>2</sub>* is a bit of Secret randomly inverted (*XOR*ed by the
 corresponding bit of *Part<sub>1</sub>*).
 
-So, neither *Part<sub>1</sub>*, nor *Part<sub>2</sub> 
+So, neither *Part<sub>1</sub>*, nor *Part<sub>2</sub>* 
 alone lost reveal our *Secret*. But if we combine both: 
 *Part<sub>1</sub> XOR Part<sub>2</sub> = Part<sub>1</sub> XOR 
 (Secret XOR Part<sub>1</sub>) = Part<sub>1</sub>
@@ -56,10 +56,10 @@ XOR Part<sub>1</sub> XOR Secret = Secret*, because *XOR* is associative,
 commutative, *X XOR X = 0*, and *X XOR 0 = X*.
 
 You may ask a question: why using bitwise *XOR*, we may simply chop our
-256-bit Secret in two 128-bit halves, the beginning, and the end. If
+256-bit *Secret* in two 128-bit halves, the beginning, and the end. If
 one of those get lost, it reveals 128 bits of your Secret and its
 strength remains 128 bits, which is probably enough against brute-force attacks by
-ordinary computers, but not enough against the emerging quantum
+present-day supercomputers, but not enough against the emerging quantum
 computers. Our *XOR* split scheme has 256-bit strength, enough against
 any quantum computers.
 
@@ -77,7 +77,7 @@ following. You can import *Part<sub>1</sub>* and
 **cannot** extract *Part<sub>1</sub>* and *Part<sub>2</sub>* 
 back from KMSs or HMSs, because none of
 them allow you to extract keys (*Part<sub>1</sub>* or 
-*Part<sub>2</sub>*). It's supposed for
+*Part<sub>2</sub>*). It's supposed to be so for
 your benefit: you can only use KMS or HMS APIs to encrypt or decrypt
 messages with a key contained in KMS/HSM, but cannot extract the keys from
 there! Therefore, the ideal form of keeping your *Part<sub>1</sub>* 
@@ -94,7 +94,7 @@ It does not matter where you keep your encrypted data. It's useless
 unless both secret parts are revealed.
 
 
-**How is it Relevant to You?**
+**How is it relevant to you?**
 Even though cloud cryptography is a powerful thing, it easily 
 'breaks on demand'. If
 required, cloud providers reveal you secrets. Here's what AWS says.
